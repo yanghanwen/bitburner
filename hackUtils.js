@@ -41,7 +41,15 @@ export function runFile(ns , file , host)
 		switch(file)
 		{
 			case "NUKE.exe":{
-			 	ns.nuke(host);
+				if(isPortOpen(ns,host))
+				{
+			 		ns.nuke(host);
+				}
+				else
+				{
+					ns.tprintf("端口不满足NUKE运行条件");
+					flag = false;
+				}
 			}
 			break;
 			case "BruteSSH.exe":{
@@ -77,11 +85,11 @@ export function runFile(ns , file , host)
 
 	if(flag)
 	{ 
-		ns.tprintf("%s 成功使用 %s",host,file);  
+		ns.tprintf("[%s] run [%s] 成功",host,file);  
 	}
 	else
 	{
-		ns.tprintf("%s 不存在、或者未安装 指定文件 %s",host,file);  
+		ns.tprintf("[%s] run [%s] 失败",host,file);   
 	}
 	return flag;
 }
@@ -97,6 +105,18 @@ export function getThread(ns,forecast,host)
 	var maxRam = ns.getServerMaxRam(host);
 	var thread = Math.floor(maxRam/forecast);
 	return thread;
+}
+
+/** 
+ * 目标的端口是否满足需要
+ * @param {NS} ns  
+ * @param host 目标主机 
+ **/
+export function isPortOpen(ns,host)
+{
+	var sucNum = ns.getServerNumPortsRequired(host); 
+	var server = ns.getServer(host);
+	return server.openPortCount>=server.numOpenPortsRequired; 
 }
 
 /** 
