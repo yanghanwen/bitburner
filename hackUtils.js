@@ -17,7 +17,7 @@ export function root(ns , host)
 	ns.tprintf("尝试使用所有程序 at %s",host);
 	for(var i in utils)
 	{
-		 run(ns , utils[i] , host);
+		 runFile(ns , utils[i] , host);
 	}
 }
 
@@ -27,7 +27,7 @@ export function root(ns , host)
  * @param file 指定程序 
  * @param host 目标主机 
  **/
-export function run(ns , file , host)
+export function runFile(ns , file , host)
 { 
 	var flag = true;
 	if(utils.includes(file) && ns.fileExists(file))
