@@ -17,15 +17,17 @@ export async function main(ns) {
 			var ramUpCost = ns.hacknet.getRamUpgradeCost(i,ramStep);
 			var coreUpCost = ns.hacknet.getCoreUpgradeCost(i,coreStep);
 
-			//取出三种升级的最小值，当购买新节点只用花费很少一部分钱时，买一个新的节点
-			var minCost = Math.min(levelUpCost,ramUpCost,coreUpCost);
-			var newCost = ns.hacknet.getPurchaseNodeCost();
-			if(newCost<minCost)
-			{
-				ns.hacknet.purchaseNode();
-				cnt+=1;
+			if(cnt< ns.getPurchasedServerLimit()){
+				//取出三种升级的最小值，当购买新节点只用花费很少一部分钱时，买一个新的节点
+				var minCost = Math.min(levelUpCost,ramUpCost,coreUpCost);
+				var newCost = ns.hacknet.getPurchaseNodeCost();
+				if(newCost<minCost * 5 && ns.getServerMoneyAvailable('home')>newCost)
+				{
+					ns.hacknet.purchaseNode();
+					cnt+=1;
+				}
 			}
-
+ 
 			if(ns.getServerMoneyAvailable('home')>levelUpCost)
 			{
 				ns.hacknet.upgradeLevel(i,lvStep);
