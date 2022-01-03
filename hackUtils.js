@@ -1,4 +1,3 @@
-
 //定义你需要指定的程序
 //会按照数组顺序依次执行
 //如果不存在则不会执行
@@ -9,11 +8,11 @@ export async function main(ns) {
 }
 
 /** 
- * 尝试对目标使用所有程序
+ * 尝试对目标使用所有程序,获取ROOT权限
  * @param {NS} ns 
  * @param host 目标主机 
  **/
-export function runAll(ns , host)
+export function root(ns , host)
 {
 	ns.tprintf("尝试使用所有程序 at %s",host);
 	for(var i in utils)
