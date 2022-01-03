@@ -1,4 +1,8 @@
-var utils = ["NUKE.exe","BruteSSH.exe","FTPCrack.exe","relaySMTP.exe","HTTPWorm.exe","SQLInject.exe"];
+
+//定义你需要指定的程序
+//会按照数组顺序依次执行
+//如果不存在则不会执行
+var utils = ["BruteSSH.exe","FTPCrack.exe","relaySMTP.exe","HTTPWorm.exe","SQLInject.exe","NUKE.exe"];
 
 export async function main(ns) { 
 
