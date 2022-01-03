@@ -20,7 +20,7 @@ export async function main(ns) {
 			//取出三种升级的最小值，当购买新节点只用花费很少一部分钱时，买一个新的节点
 			var minCost = Math.min(levelUpCost,ramUpCost,coreUpCost);
 			var newCost = ns.hacknet.getPurchaseNodeCost();
-			if(newCost<minCost * 0.2)
+			if(newCost<minCost)
 			{
 				ns.hacknet.purchaseNode();
 				cnt+=1;
