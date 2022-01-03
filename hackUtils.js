@@ -86,7 +86,7 @@ export function run(ns , file , host)
  **/
 export function getThread(ns,forecast,host)
 {
-	var maxRam = ns.getServerMaxRam();
+	var maxRam = ns.getServerMaxRam(host);
 	var thread = Math.floor(maxRam/forecast);
 	return thread;
 }
@@ -99,13 +99,13 @@ export function getThread(ns,forecast,host)
  **/
 export function getScriptThread(ns,script,host)
 {
-	var ram = ns.getScriptRam(script);
+	var ram = ns.getScriptRam(script,host);
 	if(ram==0)
 	{
-		tprintf("目标主机：%s 不存在脚本：%s",host,script);
+		ns.tprintf("目标主机：%s 不存在脚本：%s",host,script);
 		return 1;
 	}
-	var maxRam = ns.getServerMaxRam();
-	var thread = Math.floor(maxRam/forecast);
+	var maxRam = ns.getServerMaxRam(host);
+	var thread = Math.floor(maxRam/ram);
 	return thread;
 }
