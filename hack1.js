@@ -10,7 +10,7 @@ export async function main(ns) {
 	var serverMoney = ns.getServerMaxMoney(target) * 0.75;
 	var serverTresh = ns.getServerMinSecurityLevel(target) + 5;
 
-	ns.tprintf("hack 脚本成功在 %s 中执行，攻击目标为: %s",ns.getHostname(),target);
+	ns.tprintf(" *************  hack 脚本成功在 %s 中执行，攻击目标为: %s",ns.getHostname(),target);
 
 	//骇端口
 	if(ns.fileExists("BruteSSH.exe","home"))
