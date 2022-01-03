@@ -13,12 +13,14 @@ export async function main(ns) {
  * @param host 目标主机 
  **/
 export function root(ns , host)
-{
+{ 
 	ns.tprintf("尝试使用所有程序 at %s",host);
 	for(var i in utils)
 	{
 		 runFile(ns , utils[i] , host);
 	}
+
+	return ns.hasRootAccess(host);
 }
 
 /** 
@@ -79,6 +81,7 @@ export function runFile(ns , file , host)
 	{
 		ns.tprintf("%s 不存在、或者未安装 指定文件 %s",host,file);  
 	}
+	return flag;
 }
 
 /** 
