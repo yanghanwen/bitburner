@@ -1,11 +1,16 @@
 /** @param {NS} ns **/
 export async function main(ns) {
 	var target =ns.args[0];//目标主机
+	if(target=="")
+	{
+		ns.tprintf("hack 脚本在 %s 中执行失败，攻击目标为: %s，你需要指定参数0",ns.getHostname(),target); 
+		return;
+	}
 
 	var serverMoney = ns.getServerMaxMoney(target) * 0.75;
 	var serverTresh = ns.getServerMinSecurityLevel(target) + 5;
 
-	ns.tprintf("hack脚本在 %s 中执行，攻击目标为: %s",ns.getHostname(),target);
+	ns.tprintf("hack 脚本成功在 %s 中执行，攻击目标为: %s",ns.getHostname(),target);
 
 	//骇端口
 	if(ns.fileExists("BruteSSH.exe","home"))
