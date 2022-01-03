@@ -32,7 +32,9 @@ export function root(ns , host)
 export function runFile(ns , file , host)
 { 
 	var flag = true;
-	if(utils.includes(file) && ns.fileExists(file))
+
+	//file 理论上应该是home拥有了就可以使用
+	if(utils.includes(file) && ns.fileExists(file,'home'))
 	{
 		ns.tprintf("尝试使用程序 %s",file);
 
