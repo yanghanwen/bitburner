@@ -34,7 +34,7 @@ export async function main(ns) {
 					ns.hacknet.purchaseNode();
 					cnt+=1;
 				}
-				else if(money(ns) >nodeCost * 0.25)
+				else if(money(ns) >nodeCost * 0.1)
 				{
 					//马上就可以买了
 					continue;
