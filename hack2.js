@@ -1,30 +1,28 @@
 /** 
- * 将脚本传播到目标机上执行(需要已经获得目标的root权限)
- * @param {NS} ns  
- **/
-export async function main(ns) {
-	var host =ns.getHostname(); 
+ * @param {NS} ns 
+ * 以指定的参数运行三大函数
+ * **/
+export async function main(ns) { 
+
 	var target = ns.args[0];
-	if(target=="")
+	var serverMoney = ns.args[1];
+	var serverTresh = ns.args[2];  
+
+	ns.tprintf("开始对 %s 执行 hack2.js , 保证资金>%s , 保证安保等级<%s",target,serverMoney,serverTresh)
+
+	while(true)
 	{
-		ns.tprintf("需要指定参数0");
-		return;
+		if(ns.getServerSecurityLevel(target)>serverTresh)
+		{
+			await ns.weaken(target); 
+		}
+		else if(ns.getServerMoneyAvailable(target)<serverMoney)
+		{ 
+			await ns.grow(target);
+		}
+		else
+		{
+			await ns.hack(target);
+		}
 	}
-
-	var hack1 = 'hack1.js';
-	var hack2 = 'hack2.js'; 
-
-    await ns.scp(hack1,host,target);
-	await ns.scp(hack2,host,target);
-
-	//停止正在运行的脚本
-	ns.killall(target); 
-
-	//吃光内存
-	var needRam = ns.getScriptRam(hack1,target);
-	var maxRam = ns.getServerMaxRam(target);
-	var thread = Math.floor(maxRam/needRam);
-
-	//运行
-	await ns.exec(hack1,target,thread,target);    
 }
