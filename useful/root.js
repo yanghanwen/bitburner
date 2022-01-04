@@ -9,10 +9,6 @@ var utils = ["BruteSSH.exe", "FTPCrack.exe", "relaySMTP.exe", "HTTPWorm.exe", "S
  **/
 export async function main(ns) {
     var host = ns.args[0];
-    if (host == "") {
-        ns.tprintf("需要指定 root对象");
-    }
-
     root(ns, host);
 }
 
@@ -22,7 +18,7 @@ export async function main(ns) {
  * @param host 目标主机 
  **/
 function root(ns, host) {
-    ns.tprintf("尝试使用所有程序 at %s", host);
+    ns.print("尝试使用所有程序 at ", host);
     for (var i in utils) {
         runFile(ns, utils[i], host);
     }
@@ -39,7 +35,7 @@ function runFile(ns, file, host) {
 
     //file 理论上应该是home拥有了就可以使用
     if (utils.includes(file) && ns.fileExists(file, 'home')) {
-        ns.tprintf("尝试使用程序 %s", file);
+        ns.print("尝试使用程序", file);
 
         switch (file) {
             case "NUKE.exe":
