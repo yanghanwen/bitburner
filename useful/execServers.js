@@ -12,7 +12,6 @@ export async function main(ns) {
 	for(var i = 0;i<servers.length;++i)
 	{
 		var serverName = servers[i];
-		var server = ns.getServer(serverName);
 		
 		//停止正在运行的脚本
 		ns.killall(serverName); 
@@ -24,6 +23,6 @@ export async function main(ns) {
 			ns.tprintf("拷贝 %s 到 %s ",script,serverName); 
 		}
 		
-        await ns.exec('server1.js',serverName,thread,target);  
+        await ns.exec('server1.js',serverName,1,target);  
 	}
 }
