@@ -3,7 +3,7 @@ export async function main(ns) {
 	//自动购买升级骇客节点
 	
 	//购买倍率
-	var lvStep = 5;
+	var lvStep = 1;
 	var ramStep = 1;
 	var coreStep =1;
 
