@@ -1,3 +1,8 @@
+function money(ns)
+{
+	return ns.getServerMoneyAvailable('home');
+}
+
 /** @param {NS} ns **/
 export async function main(ns) {
 	//自动购买升级骇客节点
@@ -9,38 +14,45 @@ export async function main(ns) {
 
 	//当前骇客节点数量
 	var cnt = ns.hacknet.numNodes();
-
+ 
 	while(true){
+
+		await ns.sleep(300);
+
 		for(var i=0;i<cnt;++i)
 		{ 
 			var levelUpCost = ns.hacknet.getLevelUpgradeCost(i,lvStep);
 			var ramUpCost = ns.hacknet.getRamUpgradeCost(i,ramStep);
 			var coreUpCost = ns.hacknet.getCoreUpgradeCost(i,coreStep);
+			var nodeCost = ns.hacknet.getPurchaseNodeCost();
 
-			if(cnt< ns.getPurchasedServerLimit()){
-				//取出三种升级的最小值，当购买新节点只用花费很少一部分钱时，买一个新的节点
-				var minCost = Math.min(levelUpCost,ramUpCost,coreUpCost);
-				var newCost = ns.hacknet.getPurchaseNodeCost();
-				if(newCost<minCost * 5 && ns.getServerMoneyAvailable('home')>newCost)
+			//new node
+			if(cnt< ns.getPurchasedServerLimit()){ 
+				//ns.tprintf("money=%s cost=%s",money(ns),nodeCost);
+				if(money(ns) > nodeCost)
 				{
 					ns.hacknet.purchaseNode();
 					cnt+=1;
 				}
+				else if(money(ns) >nodeCost * 0.25)
+				{
+					//马上就可以买了
+					continue;
+				}
 			}
  
-			if(ns.getServerMoneyAvailable('home')>levelUpCost)
+			if(money(ns)>levelUpCost)
 			{
 				ns.hacknet.upgradeLevel(i,lvStep);
 			}
-			if(ns.getServerMoneyAvailable('home')>ramUpCost)
+			if(money(ns)>ramUpCost)
 			{
 				ns.hacknet.upgradeRam(i,ramStep);
 			}
-			if(ns.getServerMoneyAvailable('home')>coreUpCost)
+			if(money(ns)>coreUpCost)
 			{
 				ns.hacknet.upgradeCore(i,coreStep);
 			}
 		}
-		await ns.sleep(300);
 	}
 }
