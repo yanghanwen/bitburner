@@ -1,2 +1,0 @@
-# bitburner
-Bitburner脚本
