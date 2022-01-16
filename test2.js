@@ -1,9 +1,24 @@
+import * as scan from '/utils/scan.js'
+
 /** @param {NS} ns **/
 export async function main(ns) {
-	var data = [];
-	if(data[1]==undefined){
-		data[1] = [];
-		data[1][2] = 11;
-	}
-	ns.tprint(data[1][2]);
+	// var all = scan.scan(ns);
+	// for(var i in all)
+	// {
+	// 	var temp = all[i];
+	// 	if(temp=="run4theh111z")
+	// 	{
+	// 		ns.tprint('-------------');
+	// 	}
+	// }
+	// let a = [];
+	// a.b = [];
+	// a.b.c = 111;
+	// ns.tprint(a.b.c);	
+	var path = await scan.scanPath(ns,"run4theh111z");
+	ns.tprintf("complete");
+	for(var i in path)
+	{
+		ns.tprintf(path[i]);
+	}	
 }
